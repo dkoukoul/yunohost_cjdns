@@ -15,9 +15,8 @@ source /usr/share/yunohost/helpers
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression --message="Setting up source files..." --weight=1
-
-mkdir -p $install_dir
-
+ls -la $install_dir
+find / -name cjdroute 2>/dev/null
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir"
 
