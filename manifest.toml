@@ -32,8 +32,8 @@ ram.runtime = "50M"
 [resources]
     [resources.sources]
         [resources.sources.main]
-        amd64.url = "https://github.com/dkoukoul/cjdns/releases/download/v22-7/cjdroute_linux_x86_64.tar.gz"
-        amd64.sha256 = "7385b98a3f7874a1fea14a6afeb9019d3595269b5c3282cb4dea35fc3b4a47ac"
+        amd64.url = "https://github.com/dkoukoul/cjdns/releases/download/v22-7/cjdroute_debian11_x86_64.tar.gz"
+        amd64.sha256 = "32948ed786abd02d49c86ff614df5a49e629b14a7495ac96b641baddcd57945b"
         arm64.url = "https://github.com/dkoukoul/cjdns/releases/download/v22-7/cjdroute_linux_arm64.tar.gz"
         arm64.sha256 = "8c391e024cc9094f0ec23ac325c2115013757da34fe730d46fc17436cf4773da"
     
