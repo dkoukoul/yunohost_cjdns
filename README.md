@@ -18,7 +18,6 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 Cjdns implements an encrypted IPv6 network using public-key cryptography for address allocation and a distributed hash table for routing. This provides near-zero-configuration networking, and prevents many of the security and scalability issues that plague existing networks.
 
-
 **Shipped version:** 22.7~ynh1
 
 ## Screenshots
@@ -27,9 +26,9 @@ Cjdns implements an encrypted IPv6 network using public-key cryptography for add
 
 ## Documentation and resources
 
-* Upstream app code repository: <https://github.com/cjdelisle/cjdns/>
-* YunoHost Store: <https://apps.yunohost.org/app/cjdns>
-* Report a bug: <https://github.com/YunoHost-Apps/cjdns_ynh/issues>
+- Upstream app code repository: <https://github.com/cjdelisle/cjdns/>
+- YunoHost Store: <https://apps.yunohost.org/app/cjdns>
+- Report a bug: <https://github.com/YunoHost-Apps/cjdns_ynh/issues>
 
 ## Developer info
 
@@ -37,7 +36,7 @@ Please send your pull request to the [testing branch](https://github.com/YunoHos
 
 To try the testing branch, please proceed like that.
 
-``` bash
+```bash
 sudo yunohost app install https://github.com/YunoHost-Apps/cjdns_ynh/tree/testing --debug
 or
 sudo yunohost app upgrade cjdns -u https://github.com/YunoHost-Apps/cjdns_ynh/tree/testing --debug
