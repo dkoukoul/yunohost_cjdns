@@ -36,7 +36,8 @@ ram.runtime = "50M"
         amd64.sha256 = "32948ed786abd02d49c86ff614df5a49e629b14a7495ac96b641baddcd57945b"
         arm64.url = "https://github.com/dkoukoul/cjdns/releases/download/v22-7/cjdroute_linux_arm64.tar.gz"
         arm64.sha256 = "8c391e024cc9094f0ec23ac325c2115013757da34fe730d46fc17436cf4773da"
-    
+        in_subdir = false
+        
     [resources.system_user]
     
     [resources.install_dir]
