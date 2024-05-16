@@ -23,12 +23,10 @@ chmod -R o-rwx "$install_dir"
 chown -R $app:www-data "$install_dir"
 chmod +x "$install_dir/cjdroute"
 
-# mv $install_dir/cjdroute $data_dir/cjdroute
-
 #=================================================
 # CONFIGURING CJDNS
 #=================================================
-ynh_script_progression --message="Configuring cjdns..." --weight=1
+ynh_script_progression --message="Configuring $app..." --weight=1
 
 $install_dir/cjdroute --genconf | $install_dir/cjdroute --cleanconf > $install_dir/cjdroute.conf 
 
@@ -38,14 +36,14 @@ jq '.noBackground = 1' $install_dir/cjdroute.conf > $install_dir/cjdroute.conf.t
 #=================================================
 # UPGRADE PEERS
 #=================================================
-ynh_script_progression --message="Getting cjdns peers..." --weight=1
+ynh_script_progression --message="Getting $app peers..." --weight=1
 
 # Fetch the JSON data
 json=$(curl -s -A "ynh" https://vpn.anode.co/api/0.4/vpn/cjdns/peeringlines/)
 echo "Got peering lines"
 
 length=$(echo $json | jq '. | length')
-ynh_script_progression --message="Adding $length cjdns peers..." --weight=1
+ynh_script_progression --message="Adding $length $app peers..." --weight=1
 for (( i=0; i<$length; i++ ))
 do
     # Parse the JSON data
@@ -74,7 +72,7 @@ ynh_app_setting_set --app=$app --key=cjdns_ipv6 --value=$cjdns_ipv6
 #=================================================
 # SETUP SYSTEMD
 #=================================================
-ynh_script_progression --message="Configuring cjdns systemd service..."
+ynh_script_progression --message="Configuring systemd service..."
 
 # Create a dedicated systemd config
 ynh_add_systemd_config
@@ -85,7 +83,7 @@ ynh_use_logrotate
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
-ynh_script_progression --message="Integrating cjdns service in YunoHost..."
+ynh_script_progression --message="Integrating service in YunoHost..."
 
 yunohost service add $app --description="Encrypted IPv6 network" --log="/var/log/$app/$app.log"
 
@@ -98,14 +96,6 @@ ynh_script_progression --message="Launching cjdns service..." --weight=1
 
 # Start a systemd service
 ynh_systemd_action --service_name=$app --action="start" --log_path="systemd"
-
-#=================================================
-# MAKE WORDPRESS AVAILABLE ON CJDNS
-#=================================================
-
-if [[ -z $(yunohost app list | grep -q 'id: wordpress') ]]; then
-    yunohost tools shell -c "from yunohost.permission import permission_url; permission_url('wordpress.main', add_url=['re:^.fc.*'])"
-fi
 
 #=================================================
 # END OF SCRIPT
