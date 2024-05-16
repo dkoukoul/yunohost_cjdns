@@ -19,7 +19,7 @@ EZ editatu eskuz.
 Cjdns implements an encrypted IPv6 network using public-key cryptography for address allocation and a distributed hash table for routing. This provides near-zero-configuration networking, and prevents many of the security and scalability issues that plague existing networks.
 
 
-**Paketatutako bertsioa:** 22.7~ynh1
+**Paketatutako bertsioa:** 22.7~ynh2
 
 ## Pantaila-argazkiak
 
