@@ -6,7 +6,7 @@ name = "Cjdns"
 description.en = "Encrypted IPv6 network"
 description.fr = "Réseau IPv6 chiffré"
 
-version = "22.7~ynh1"
+version = "22.7~ynh2"
 
 maintainers = ["dkoukoul"]
 
