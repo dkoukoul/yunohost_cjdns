@@ -25,16 +25,10 @@ fi
 
 ynh_remove_systemd_config
 
-# =================================================
-# STOP AND REMOVE SERVICE
-#=================================================
-ynh_script_progression --message="Stopping and removing the systemd service..." --weight=1
-
 killall cjdroute
 
-# Remove other various files specific to the app... such as :
+# Remove other various files specific to the app...
 ynh_secure_remove --file="/var/log/$app"
-ynh_secure_remove --file="$install_dir"
 
 #=================================================
 # END OF SCRIPT
