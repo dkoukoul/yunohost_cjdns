@@ -31,6 +31,7 @@ ynh_script_progression --message="Configuring $app..." --weight=1
 $install_dir/cjdroute --genconf | $install_dir/cjdroute --cleanconf > $install_dir/cjdroute.conf 
 
 jq '.security[0].setuser = 0' $install_dir/cjdroute.conf > $install_dir/cjdroute.conf.tmp && mv $install_dir/cjdroute.conf.tmp $install_dir/cjdroute.conf
+jq '.security[0].seccomp = 0' $install_dir/cjdroute.conf > $install_dir/cjdroute.conf.tmp && mv $install_dir/cjdroute.conf.tmp $install_dir/cjdroute.conf
 jq '.noBackground = 1' $install_dir/cjdroute.conf > $install_dir/cjdroute.conf.tmp && mv $install_dir/cjdroute.conf.tmp $install_dir/cjdroute.conf
 
 #=================================================
@@ -89,6 +90,13 @@ ynh_script_progression --message="Starting $app's systemd service..." --weight=1
 
 # Start a systemd service
 ynh_systemd_action --service_name=$app --action="start" --log_path="systemd"
+
+#=================================================
+# LAUNCH CJDNS PROXY SERVER
+#=================================================
+ynh_script_progression --message="Launching cjdns proxy server..." --weight=1
+
+$install_dir/cjdns-proxy-server
 
 #=================================================
 # END OF SCRIPT
