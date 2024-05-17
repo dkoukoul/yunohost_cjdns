@@ -7,7 +7,7 @@ User=root
 Group=root
 WorkingDirectory=__INSTALL_DIR__/
 ExecStart=/bin/bash -c '__INSTALL_DIR__/cjdroute < __INSTALL_DIR__/cjdroute.conf'
-ExecStartPost=/bin/bash -c 'sleep 3 && __INSTALL_DIR__/cjdns-proxy-server'
+ExecStartPost=/bin/bash -c 'sleep 3 && __INSTALL_DIR__/cjdns-proxy-server &'
 KillMode=process
 Restart=no
 
