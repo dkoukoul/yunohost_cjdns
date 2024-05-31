@@ -32,7 +32,6 @@ $install_dir/cjdroute --genconf | $install_dir/cjdroute --cleanconf > $install_d
 
 jq '.security[0].setuser = 0' $install_dir/cjdroute.conf > $install_dir/cjdroute.conf.tmp && mv $install_dir/cjdroute.conf.tmp $install_dir/cjdroute.conf
 jq '.security[0].seccomp = 0' $install_dir/cjdroute.conf > $install_dir/cjdroute.conf.tmp && mv $install_dir/cjdroute.conf.tmp $install_dir/cjdroute.conf
-jq '.noBackground = 1' $install_dir/cjdroute.conf > $install_dir/cjdroute.conf.tmp && mv $install_dir/cjdroute.conf.tmp $install_dir/cjdroute.conf
 
 #=================================================
 # UPGRADE PEERS

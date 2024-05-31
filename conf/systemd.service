@@ -6,8 +6,9 @@ After=network.target cjdns.service
 User=root
 Group=root
 WorkingDirectory=__INSTALL_DIR__/
-ExecStart=/bin/bash -c '__INSTALL_DIR__/cjdroute < __INSTALL_DIR__/cjdroute.conf'
-ExecStartPost=/bin/bash -c 'sleep 3 && __INSTALL_DIR__/cjdns-proxy-server &'
+ExecStartPre=/bin/bash -c '__INSTALL_DIR__/cjdroute < __INSTALL_DIR__/cjdroute.conf'
+ExecStart=/bin/bash -c 'sleep 3 && __INSTALL_DIR__/cjdns-proxy-server'
+ExecStop=/bin/bash -c 'killall cjdroute'
 KillMode=process
 Restart=no
 
