@@ -4,17 +4,12 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# APP "BUILD" (DEPLOYING SOURCES, VENV, COMPILING ETC)
-#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Setting up source files..."
 
-# Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir"
 
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:www-data "$install_dir"
 chmod +x "$install_dir/cjdroute"
 
 #=================================================
@@ -70,10 +65,8 @@ ynh_app_setting_set --key=cjdns_ipv6 --value=$cjdns_ipv6
 #=================================================
 ynh_script_progression "Adding $app's configuration files..."
 
-# Create a dedicated systemd config
 ynh_config_add_systemd
 
-# Use logrotate to manage application logfile(s)
 ynh_config_add_logrotate
 
 yunohost service add $app --description="Encrypted IPv6 network" --log="/var/log/$app/$app.log"
@@ -83,10 +76,10 @@ yunohost service add $app --description="Encrypted IPv6 network" --log="/var/log
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
-# Start a systemd service
 ynh_systemctl --service=$app --action="start" --log_path="systemd"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
+
 ynh_script_progression "Installation of $app completed"
