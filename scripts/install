@@ -1,34 +1,23 @@
 #!/bin/bash
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# APP "BUILD" (DEPLOYING SOURCES, VENV, COMPILING ETC)
-#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression --message="Setting up source files..." --weight=1
+ynh_script_progression "Setting up source files..."
 
-# Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir"
 
-chmod -R o-rwx "$install_dir"
-chown -R $app:www-data "$install_dir"
 chmod +x "$install_dir/cjdroute"
 
 #=================================================
 # CONFIGURING CJDNS
 #=================================================
-ynh_script_progression --message="Configuring $app..." --weight=1
+ynh_script_progression "Configuring $app..."
 
-$install_dir/cjdroute --genconf | $install_dir/cjdroute --cleanconf > $install_dir/cjdroute.conf 
+$install_dir/cjdroute --genconf | $install_dir/cjdroute --cleanconf > $install_dir/cjdroute.conf
 
 jq '.security[0].setuser = 0' $install_dir/cjdroute.conf > $install_dir/cjdroute.conf.tmp && mv $install_dir/cjdroute.conf.tmp $install_dir/cjdroute.conf
 jq '.security[0].seccomp = 0' $install_dir/cjdroute.conf > $install_dir/cjdroute.conf.tmp && mv $install_dir/cjdroute.conf.tmp $install_dir/cjdroute.conf
@@ -37,14 +26,14 @@ jq '.noBackground = 1' $install_dir/cjdroute.conf > $install_dir/cjdroute.conf.t
 #=================================================
 # UPGRADE PEERS
 #=================================================
-ynh_script_progression --message="Getting $app peers..." --weight=1
+ynh_script_progression "Getting $app peers..."
 
 # Fetch the JSON data
 json=$(curl -s -A "ynh" https://vpn.anode.co/api/0.4/vpn/cjdns/peeringlines/)
 echo "Got peering lines"
 
 length=$(echo $json | jq '. | length')
-ynh_script_progression --message="Adding $length $app peers..." --weight=1
+ynh_script_progression "Adding $length $app peers..."
 for (( i=0; i<$length; i++ ))
 do
     # Parse the JSON data
@@ -63,35 +52,34 @@ do
     '{($ip_port): {"login": $login, "password": $password, "publicKey": $publicKey}}')
 
     # Insert the peer into the cjdroute.conf file
-    jq --argjson peer "$peer" '(.interfaces.UDPInterface[] | select(.beaconPort == 64512) .connectTo) |= . + $peer' $install_dir/cjdroute.conf > $install_dir/cjdroute.conf.tmp 
+    jq --argjson peer "$peer" '(.interfaces.UDPInterface[] | select(.beaconPort == 64512) .connectTo) |= . + $peer' $install_dir/cjdroute.conf > $install_dir/cjdroute.conf.tmp
+
     mv $install_dir/cjdroute.conf.tmp $install_dir/cjdroute.conf
 done
 
 cjdns_ipv6=$(jq -r '.ipv6' < $install_dir/cjdroute.conf)
-ynh_app_setting_set --app=$app --key=cjdns_ipv6 --value=$cjdns_ipv6
+ynh_app_setting_set --key=cjdns_ipv6 --value=$cjdns_ipv6
 
 #=================================================
 # APP INITIAL CONFIGURATION
 #=================================================
-ynh_script_progression --message="Adding $app's configuration files..." --weight=1
+ynh_script_progression "Adding $app's configuration files..."
 
-# Create a dedicated systemd config
-ynh_add_systemd_config
+ynh_config_add_systemd
 
-# Use logrotate to manage application logfile(s)
-ynh_use_logrotate
+ynh_config_add_logrotate
 
 yunohost service add $app --description="Encrypted IPv6 network" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting $app's systemd service..." --weight=1
+ynh_script_progression "Starting $app's systemd service..."
 
-# Start a systemd service
-ynh_systemd_action --service_name=$app --action="start" --log_path="systemd"
+ynh_systemctl --service=$app --action="start" --log_path="systemd"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
-ynh_script_progression --message="Installation of $app completed" --last
+
+ynh_script_progression "Installation of $app completed"
