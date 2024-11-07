@@ -5,7 +5,7 @@ No se debe editar a mano.
 
 # Cjdns para Yunohost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/cjdns.svg)](https://dash.yunohost.org/appci/app/cjdns) ![Estado funcional](https://ci-apps.yunohost.org/ci/badges/cjdns.status.svg) ![Estado En Mantención](https://ci-apps.yunohost.org/ci/badges/cjdns.maintain.svg)
+[![Nivel de integración](https://dash.yunohost.org/integration/cjdns.svg)](https://ci-apps.yunohost.org/ci/apps/cjdns/) ![Estado funcional](https://ci-apps.yunohost.org/ci/badges/cjdns.status.svg) ![Estado En Mantención](https://ci-apps.yunohost.org/ci/badges/cjdns.maintain.svg)
 
 [![Instalar Cjdns con Yunhost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=cjdns)
 
@@ -33,7 +33,7 @@ Cjdns implements an encrypted IPv6 network using public-key cryptography for add
 
 ## Información para desarrolladores
 
-Por favor enviar sus correcciones a la [`branch testing`](https://github.com/YunoHost-Apps/cjdns_ynh/tree/testing
+Por favor enviar sus correcciones a la [rama `testing`](https://github.com/YunoHost-Apps/cjdns_ynh/tree/testing).
 
 Para probar la rama `testing`, sigue asÍ:
 
