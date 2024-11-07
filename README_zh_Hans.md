@@ -5,7 +5,7 @@
 
 # YunoHost 上的 Cjdns
 
-[![集成程度](https://dash.yunohost.org/integration/cjdns.svg)](https://dash.yunohost.org/appci/app/cjdns) ![工作状态](https://ci-apps.yunohost.org/ci/badges/cjdns.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/cjdns.maintain.svg)
+[![集成程度](https://dash.yunohost.org/integration/cjdns.svg)](https://ci-apps.yunohost.org/ci/apps/cjdns/) ![工作状态](https://ci-apps.yunohost.org/ci/badges/cjdns.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/cjdns.maintain.svg)
 
 [![使用 YunoHost 安装 Cjdns](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=cjdns)
 
